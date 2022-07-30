@@ -7,12 +7,10 @@ import models.PetStore;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
-
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.baseURI;
 
 public class StoreTestByRestAssured extends PetStore implements PetStoreMethods {
-
     PetStore petStore;
     Response response;
     JsonPath actualBody;
@@ -36,6 +34,7 @@ public class StoreTestByRestAssured extends PetStore implements PetStoreMethods 
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = mapper.writeValueAsString(petStore);
 
+
         response = given().
                 header("Content-Type", "application/json").
                 when().
@@ -46,7 +45,8 @@ public class StoreTestByRestAssured extends PetStore implements PetStoreMethods 
                 contentType(ContentType.JSON).
                 extract().response();
 
-        //Verifications
+        // "Status Code" and "ContentType" could be compared directly. Because the library is prepared in a language that can detect them.
+        //But "response" is not prepared for directly  compare. So we need to convert "response" to JsonPath.
         actualBody = response.jsonPath();
 
         assertEquals(actualBody.getInt("id"), PetStoreMethods.id);
@@ -63,6 +63,7 @@ public class StoreTestByRestAssured extends PetStore implements PetStoreMethods 
 
         petStore.setId(PetStoreMethods.id);
 
+        //We don't have body. Because this is a GET method.
         response = given().
                 when().
                 get(baseURI + "/order/" + PetStoreMethods.id).
@@ -82,6 +83,7 @@ public class StoreTestByRestAssured extends PetStore implements PetStoreMethods 
 
         petStore.setCode(PetStoreMethods.code);
 
+        //We don't have body. Because this is a DELETE method.
         response = given().
                 when().
                 delete(baseURI + "/order/" + PetStoreMethods.id).
@@ -99,6 +101,7 @@ public class StoreTestByRestAssured extends PetStore implements PetStoreMethods 
     @Test(priority = 4)
     public void verifyReturn() {
 
+        //We don't have body. Because this is a GET method.
         response = given().
                 when().
                 get(baseURI + "/inventory").

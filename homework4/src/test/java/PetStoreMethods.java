@@ -12,10 +12,10 @@ public interface PetStoreMethods {
 
     void verifyPlaceOrderForPet() throws JsonProcessingException, UnirestException;
 
-    void verifyFindPurchaseByID() throws UnirestException;
+    void verifyFindPurchaseByID() throws UnirestException, JsonProcessingException;
 
-    void verifyDeletePurchaseByID() throws UnirestException;
+    void verifyDeletePurchaseByID() throws UnirestException, JsonProcessingException;
 
-    void verifyReturn() throws UnirestException;
+    void verifyReturn() throws UnirestException, JsonProcessingException;
 
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import static io.restassured.RestAssured.baseURI;
 
+// Used Getter and Setter methods with Lombok for clean code.
 public @Data class PetStore {
     public @Getter @Setter int id;
     public @Getter @Setter int petId;
